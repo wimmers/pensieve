@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Demo from './Demo';
 import React, { Component } from 'react'
 import Container from 'react-bootstrap/Container';
+import GraphView from './GraphView';
 
 class App extends Component {
   state = {
@@ -17,7 +17,7 @@ class App extends Component {
     return ([
       <Container fluid>
         <div className="graphview" id="graphview-container">
-          <Demo on_select_node={this.on_select_node} />
+          <GraphView on_select_node={this.on_select_node} />
         </div>
       </Container>,
       <Container fluid className="p-3">

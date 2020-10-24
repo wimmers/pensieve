@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CytoscapeComponent from 'react-cytoscapejs'
 
-export default class Demo extends Component {
+export default class GraphView extends Component {
 
     state = {
         w: 0,
