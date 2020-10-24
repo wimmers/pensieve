@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.header {
+  text-align: center;
+}
+
+.graphview {
+  border: 2px dotted grey
+}

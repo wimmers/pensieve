@@ -25,8 +25,8 @@ export default class Demo extends Component {
                 this.setState({
                     elements: json,
                     loading: false,
-                    w: window.innerWidth,
-                    h: window.innerHeight
+                    w: this.container.offsetWidth,
+                    h: 800
                 });
                 this.setUpListeners();
                 this.cy.layout(this.layout).run()
@@ -47,8 +47,8 @@ export default class Demo extends Component {
 
     setUpListeners = () => {
         this.cy.on('tap', 'node', (event) => {
+            // Add new edge
             if (this.keys["Control"]) {
-                console.log('A')
                 const nds = this.cy.elements(":selected");
                 if (nds.length > 0 && nds[0]) {
                     const source = nds[0].data('id')
@@ -63,6 +63,8 @@ export default class Demo extends Component {
                     // this.cy.layout(this.layout).run()
                 }
             }
+            // Assume that node was selected
+            this.props.on_select_node(event.target.data())
         })
         this.cy.on('tap', (event) => {
             if (event.target === this.cy) {
@@ -118,6 +120,15 @@ export default class Demo extends Component {
         },
 
         {
+            "selector": "node:selected",
+            "style": {
+              "border-width": "6px",
+              "border-color": "#AAD8FF",
+              "border-opacity": "0.5"
+            }
+          },
+
+        {
             selector: 'edge',
             style: {
                 'curve-style': 'bezier',
@@ -129,7 +140,7 @@ export default class Demo extends Component {
 
     render() {
         return (
-            <div>
+            <div ref={el => (this.container = el)}>
                 {this.state.loading ?
                     <p>Waiting for data to load!</p> :
                     <CytoscapeComponent

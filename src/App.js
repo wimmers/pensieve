@@ -1,25 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import Demo from './Demo';
+import React, { Component } from 'react'
+import Container from 'react-bootstrap/Container';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    "text": undefined
+  }
+
+  on_select_node = data => {
+    this.setState({ ...this.state, "text": data["note"] })
+  }
+
+  render() {
+    return ([
+      <Container fluid>
+        <div className="graphview" id="graphview-container">
+          <Demo on_select_node={this.on_select_node} />
+        </div>
+      </Container>,
+      <Container fluid className="p-3">
+        <div>
+          <p>{this.state.text}</p>
+        </div>
+      </Container>
+    ]);
+  }
 }
 
 export default App;
