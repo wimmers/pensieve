@@ -20,6 +20,10 @@ class App extends Component {
     this.setState({ ...this.state, selected: data })
   }
 
+  onDeselectNode = data => {
+    this.setState({ ...this.state, selected: null })
+  }
+
   updateMarkdown = (_editor, _data, value) => {
     const state = this.state
     if (!state.selected)
@@ -37,7 +41,6 @@ class App extends Component {
       const info = JSON.parse(code)
       const cy = this.graphView.current.cy
       const data = { data: { info: info, label: info['name'] } }
-      console.log(data)
       cy.$(`[id = '${state.selected.id}']`).json(data)
     }
     catch (e) {
@@ -51,7 +54,11 @@ class App extends Component {
     return ([
       <Container fluid>
         <div className="graphview" id="graphview-container">
-          <GraphView onSelectNode={this.onSelectNode} ref={this.graphView} />
+          <GraphView
+            onSelectNode={this.onSelectNode}
+            onDeselectNode={this.onDeselectNode}
+            ref={this.graphView}
+            />
         </div>
       </Container>,
       <Container fluid className="p-3">
@@ -66,7 +73,7 @@ class App extends Component {
           </Col>
           <Col xs="12" lg="4" xl="3">
             <CodeMirror
-              value={state.selected ? JSON.stringify(state.selected.info, null, 4) : null}
+              value={state.selected ? JSON.stringify(state.selected.info, null, 4) : ""}
               onChange={this.updateJson}
               options={{
                 theme: 'monokai',
