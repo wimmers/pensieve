@@ -127,6 +127,7 @@ class App extends Component {
 
   render() {
     const state = this.state
+    const linkDisabled = !state.selected
     return ([
       <Container fluid>
         <div className="graphview" id="graphview-container">
@@ -142,11 +143,15 @@ class App extends Component {
       </Container>,
       <Container fluid className="p-3">
         <div className="mb-1">
-          <Button className="mb-1" variant="primary" onClick={this.onAddNote}>+ note</Button>{' '}
-          <Button className="mb-1" variant="secondary" onClick={this.onAddFrom}>
+          <Button className="mb-1" variant="primary" onClick={this.onAddNote}>
+            + note
+          </Button>{' '}
+          <Button className="mb-1" variant="secondary"
+            onClick={this.onAddFrom} disabled={linkDisabled}>
             + from
           </Button>{' '}
-          <Button className="mb-1" variant="dark" onClick={this.onAddCrossref}>
+          <Button className="mb-1" variant="dark"
+            onClick={this.onAddCrossref} disabled={linkDisabled}>
             + crossref
           </Button>{' '}
           <Button className="mb-1" variant="danger" onClick={this.onRefresh}>
