@@ -78,7 +78,9 @@ export default class GraphView extends Component {
 
 
     layout = {
-        name: 'cose'
+        name: 'cose',
+        nodeDimensionsIncludeLabels: true,
+        componentSpacing: 100
     }
 
     style = style
