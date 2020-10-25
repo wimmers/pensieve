@@ -65,7 +65,7 @@ export default class GraphView extends Component {
                 }
             }
             // Assume that node was selected
-            this.props.on_select_node(event.target.data())
+            this.props.onSelectNode(event.target.data())
         })
         this.cy.on('tap', (event) => {
             if (event.target === this.cy) {

@@ -3,27 +3,39 @@ import './App.css';
 import React, { Component } from 'react'
 import Container from 'react-bootstrap/Container';
 import GraphView from './GraphView';
+import MarkdownEditor from '@uiw/react-markdown-editor';
 
 class App extends Component {
   state = {
-    "text": undefined
+    selected: undefined
   }
 
-  on_select_node = data => {
-    this.setState({ ...this.state, "text": data["note"] })
+  graphView = React.createRef();
+
+  onSelectNode = data => {
+    this.setState({ ...this.state, selected: data })
+  }
+
+  updateMarkdown = (_editor, _data, value) => {
+    const cy = this.graphView.current.cy
+    cy.$(`[id = '${this.state.selected.id}']`).json({ "data": { "note": value } })
   }
 
   render() {
+    const state = this.state
     return ([
       <Container fluid>
         <div className="graphview" id="graphview-container">
-          <GraphView on_select_node={this.on_select_node} />
+          <GraphView onSelectNode={this.onSelectNode} ref={this.graphView} />
         </div>
       </Container>,
       <Container fluid className="p-3">
-        <div>
-          <p>{this.state.text}</p>
-        </div>
+        <MarkdownEditor
+          value={state.selected ? state.selected.note : null}
+          onChange={this.updateMarkdown}
+          visible={false}
+          height={500}
+        />
       </Container>
     ]);
   }
