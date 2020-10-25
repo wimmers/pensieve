@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   unsetFlags = () => {
-    this.setState({...this.state, adding: null, linking: null})
+    this.setState({ ...this.state, adding: null, linking: null })
   }
 
   insertTextAtCursor(text) {
@@ -80,10 +80,10 @@ class App extends Component {
   onTapBackground = event => {
     if (this.state.adding === "note") {
       const graphView = this.graphView.current
-      const id = graphView.addNodeFromEvent(event)
+      const node = graphView.addNodeFromEvent(event)
       const name = "Untitled"
       const info = { ...empty_info, name: name }
-      graphView.cy.$(`[id='${id}']`).json({ info: info, label: name })
+      node.json({ data: { info: info, label: name } })
     }
     this.unsetFlags()
   }
