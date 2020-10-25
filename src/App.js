@@ -21,14 +21,16 @@ class App extends Component {
   }
 
   updateMarkdown = (_editor, _data, value) => {
-    if (!this.selected)
+    const state = this.state
+    if (!state.selected)
       return
     const cy = this.graphView.current.cy
-    cy.$(`[id = '${this.state.selected.id}']`).json({ data: { note: value } })
+    cy.$(`[id = '${state.selected.id}']`).json({ data: { note: value } })
   }
 
   updateJson = (editor) => {
-    if (!this.selected)
+    const state = this.state
+    if (!state.selected)
       return
     try {
       const code = editor.getValue()
@@ -36,7 +38,7 @@ class App extends Component {
       const cy = this.graphView.current.cy
       const data = { data: { info: info, label: info['name'] } }
       console.log(data)
-      cy.$(`[id = '${this.state.selected.id}']`).json(data)
+      cy.$(`[id = '${state.selected.id}']`).json(data)
     }
     catch (e) {
       if (e.name !== "SyntaxError")
