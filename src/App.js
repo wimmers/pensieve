@@ -59,7 +59,6 @@ class App extends Component {
   onTapNode = node => {
     const state = this.state
     if (state.linking && state.selected) {
-      console.log(state.selected)
       const style = state.linking === 'crossref' ?
         "dashed" :
         "solid"
@@ -67,8 +66,11 @@ class App extends Component {
       const targetName = node.data('label')
       var text = `[#${state.linking}](note/${targetName}.md)`
       this.insertTextAtCursor(text)
+      this.unsetFlags()
+      return true
     }
     this.unsetFlags()
+    return false
   }
 
   onSelectEdge = edge => {

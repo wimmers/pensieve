@@ -49,12 +49,16 @@ export default class GraphView extends Component {
                 style: style
             }
         })
-        this.cy.$(`[id=${source}]`).select()
     }
 
     setUpListeners = () => {
         this.cy.on('tap', 'node', (event) => {
-            this.props.onTapNode(event.target)
+            const node = event.target
+            node.selectify()
+            const stopSelection = this.props.onTapNode(node)
+            if (stopSelection) {
+                node.unselectify()
+            }
         })
         this.cy.on('tap', (event) => {
             if (event.target === this.cy) {
