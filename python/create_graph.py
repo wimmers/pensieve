@@ -86,11 +86,11 @@ def convert_data(data):
     nodes = []
     for item in data:
         node_data = {
-            ("label" if k == "name" else k): v for k, v in item['info'].items()
+            'info': item['info'],
+            'label': item['info']['name'],
+            'id': str(id_counter),
+            'note': item['note']
         }
-        node_data['id'] = str(id_counter)
-        # node_data['is_tag'] = False
-        node_data['note'] = item['note']
         id_mapping[item['info']['name']] = str(id_counter)
         id_counter += 1
         node = {"data": node_data}
