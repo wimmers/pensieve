@@ -35,9 +35,9 @@ export default class GraphView extends Component {
         const pos = event.position
         const id = 'new_' + this.id_counter
         const label = "Node " + this.id_counter++
-        const new_node = { data: { id: id, label: label }, position: pos }
-        this.cy.add(new_node).select()
-        return id
+        const data = { data: { id: id, label: label }, position: pos }
+        const node = this.cy.add(data).select()
+        return node
     }
 
     addEdge = (source, target, style) => {
