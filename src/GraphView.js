@@ -10,6 +10,8 @@ export default class GraphView extends Component {
         loading: true
     }
 
+    container = React.createRef()
+
     runLayout() {
         this.cy.layout(this.layout).run()
     }
@@ -22,7 +24,7 @@ export default class GraphView extends Component {
         this.setState({
             elements: json,
             loading: false,
-            w: this.container.offsetWidth,
+            w: this.container.current.offsetWidth,
             h: 800
         })
         this.runLayout()
@@ -92,7 +94,7 @@ export default class GraphView extends Component {
 
     render() {
         return (
-            <div ref={el => (this.container = el)}>
+            <div ref={this.container}>
                 {this.state.loading ?
                     <p>Waiting for data to load!</p> :
                     <CytoscapeComponent
