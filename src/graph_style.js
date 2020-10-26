@@ -1,10 +1,9 @@
-export default
+const graph_style =
     [
         {
             selector: 'node',
             style: {
                 "text-wrap": "wrap",
-                'text-valign': 'center',
                 "text-max-width": "90px",
                 "font-size": "12px",
                 "text-valign": "center",
@@ -62,3 +61,4 @@ export default
             }
         }
     ]
+export default graph_style
