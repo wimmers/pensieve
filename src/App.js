@@ -21,6 +21,12 @@ const empty_info = {
 }
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.onRefresh = this.onRefresh.bind(this)
+  }
+
   state = {
     selected: undefined,
     adding: null,
@@ -32,7 +38,7 @@ class App extends Component {
   markdownEditor = React.createRef()
 
   sendJSON = (endpoint, json) => {
-    fetch(endpoint, {
+    return fetch(endpoint, {
       mode: 'no-cors',
       method: 'POST',
       body: JSON.stringify(json),
@@ -43,11 +49,11 @@ class App extends Component {
   }
 
   sendAddNote = node => {
-    this.sendJSON('/add', node)
+    return this.sendJSON('/add', node)
   }
 
   sendChangeNote = (node) => {
-    this.sendJSON('/update', node)
+    return this.sendJSON('/update', node)
   }
 
   onAddNote = data => {
@@ -107,10 +113,10 @@ class App extends Component {
     this.unsetFlags()
   }
 
-  onRefresh = data => {
+  async onRefresh (data) {
     const state = this.state
     if (state.selected) {
-      this.sendChangeNote(state.selected.data())
+      await this.sendChangeNote(state.selected.data())
     }
     this.graphView.current.loadGraph()
   }
