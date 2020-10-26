@@ -1,5 +1,5 @@
 import time
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request
 import json
 from pprint import pprint
 import sys
@@ -22,6 +22,7 @@ HEADER_FIELDS = [
     "modified",
 ]
 
+db = {}
 
 def make_file_name(name):
     return os.path.join(THE_PATH, f"{name}.md")
@@ -94,6 +95,7 @@ def get_current_time():
 
 
 def create_db(graph):
+    global db
     db = {}
     for item in graph:
         data = item.get('data')
@@ -101,7 +103,6 @@ def create_db(graph):
             continue
         if 'info' in data:
             db[data['id']] = data
-    session['db'] = db
 
 
 @app.route('/init')
@@ -113,23 +114,21 @@ def get_init_json():
 
 @app.route('/add', methods=['POST'])
 def add_note():
+    global db
     new_note = request.get_json(force=True)
     write_note(new_note)
-    db = session['db']
     db[new_note['id']] = new_note
-    session.modified = True
     return {}
 
 
 @app.route('/update', methods=['POST'])
 def change_note():
+    global db
     note = request.get_json(force=True)
-    db = session['db']
     old = db.get(note['id'])
     # Assume node was a tag and ignore the update
     if not old:
         return {}
     apply_change(old, note)
     db[note['id']] = note
-    session.modified = True
     return {}
