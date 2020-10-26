@@ -1,14 +1,11 @@
-# %%
-from os import read
 import re
 import os
-import json
 import itertools
 
-# %%
+
 title_re = (
     r"---"
-    r"(\nattachments: \[(?P<files>[^\]]+)\])?"
+    r"(\nattachments: \[(?P<attachments>[^\]]+)\])?"
     r"(\ndeleted: (?P<deleted>true))?"
     r"(\nfavorited: (?P<favorited>true))?"
     r"(\npinned: (?P<pinned>true))?"
@@ -19,19 +16,7 @@ title_re = (
     r"\n---\n\n"
 )
 
-# %%
-with open("../scratch/NPM.md") as f:
-    text = f.read()
-m = re.match(title_re, text)
-# %%
 link_re = r"\[(?P<type>[^\]]+)\]\(@note/(?P<name>[\w\s]+)\.md\)"
-# %%
-matches1 = re.findall(link_re, text)
-# %%
-with open("../scratch/Zenoness.md") as f:
-    text = f.read()
-matches2 = re.findall(link_re, text)
-# %%
 
 
 def parse_text(text):
@@ -56,12 +41,6 @@ def handle_file(file_name):
         return parse_text(text)
 
 
-# %%
-handle_file("/Users/wimmers/.notable/notes/Research Blogs.md")
-handle_file("/Users/wimmers/.notable/notes/On the Web.md")
-# %%
-
-
 def read_directory(dir_name):
     (dirpath, _, filenames) = next(os.walk(dir_name))
     file_paths = [os.path.join(dirpath, name)
@@ -73,11 +52,6 @@ def read_directory(dir_name):
         except ValueError:
             print(f"Error in file {path}")
     return results
-
-
-# %%
-data = read_directory("../scratch")
-# %%
 
 
 def convert_data(data):
@@ -139,18 +113,5 @@ def convert_data(data):
     return nodes + edges
 
 
-# %%
-convert_data(data)
-# %%
-
-
-def do_it(in_path, out_path):
-    data = read_directory(in_path)
-    data = convert_data(data)
-    with open(out_path, 'w') as file:
-        json.dump(data, file, indent=4)
-
-
-# %%
-do_it("/Users/wimmers/.notable/notes", "notes.json")
-# %%
+def read_and_convert(in_path):
+    return convert_data(read_directory(in_path))

@@ -14,19 +14,24 @@ export default class GraphView extends Component {
         this.cy.layout(this.layout).run()
     }
 
+
+    async loadGraph() {
+        this.setState({...this.state, loading: true})
+        const res = await fetch('/init', { mode: 'no-cors' })
+        const json = await res.json()
+        this.setState({
+            elements: json,
+            loading: false,
+            w: this.container.offsetWidth,
+            h: 800
+        })
+        this.runLayout()
+        this.setUpListeners()
+    }
+
+
     componentDidMount() {
-        fetch('notes.json', { mode: 'no-cors' })
-            .then(res => { return res.json() })
-            .then(json => {
-                this.setState({
-                    elements: json,
-                    loading: false,
-                    w: this.container.offsetWidth,
-                    h: 800
-                });
-                this.setUpListeners();
-                this.runLayout()
-            })
+        this.loadGraph()
     }
 
     id_counter = 0
@@ -69,10 +74,10 @@ export default class GraphView extends Component {
             this.props.onSelectEdge(event.target)
         })
         this.cy.on('select', 'node', (event) => {
-            this.props.onSelectNode(event.target.data())
+            this.props.onSelectNode(event.target)
         })
         this.cy.on('unselect', 'node', (event) => {
-            this.props.onDeselectNode(event.target.data())
+            this.props.onDeselectNode(event.target)
         })
     }
 

@@ -11,7 +11,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/theme/monokai.css';
 
 const empty_info = {
-  "files": null,
+  "attachments": null,
   "deleted": null,
   "favorited": null,
   "pinned": null,
@@ -32,6 +32,25 @@ class App extends Component {
 
   markdownEditor = React.createRef()
 
+  sendJSON = (endpoint, json) => {
+    fetch(endpoint, {
+      mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify(json),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  sendAddNote = node => {
+    this.sendJSON('/add', node)
+  }
+
+  sendChangeNote = (node) => {
+    this.sendJSON('/update', node)
+  }
+
   onAddNote = data => {
     this.setState({ ...this.state, adding: "note" })
   }
@@ -50,7 +69,6 @@ class App extends Component {
 
   insertTextAtCursor(text) {
     const editor = this.markdownEditor.current.CodeMirror.editor
-    console.log(editor)
     var doc = editor.getDoc();
     var cursor = doc.getCursor();
     doc.replaceRange(text, cursor);
@@ -62,9 +80,9 @@ class App extends Component {
       const style = state.linking === 'crossref' ?
         "dashed" :
         "solid"
-      this.graphView.current.addEdge(state.selected.id, node.data('id'), style)
+      this.graphView.current.addEdge(state.selected.data('id'), node.data('id'), style)
       const targetName = node.data('label')
-      var text = `[#${state.linking}](note/${targetName}.md)`
+      var text = `[#${state.linking}](@note/${targetName}.md)`
       this.insertTextAtCursor(text)
       this.unsetFlags()
       return true
@@ -82,42 +100,51 @@ class App extends Component {
       const graphView = this.graphView.current
       const node = graphView.addNodeFromEvent(event)
       const name = "Untitled"
-      const info = { ...empty_info, name: name }
+      const timestamp = new Date().toISOString()
+      const info = { ...empty_info, name: name, created: timestamp, modified: timestamp }
       node.json({ data: { info: info, label: name } })
+      this.sendAddNote(node.data())
     }
     this.unsetFlags()
   }
 
   onRefresh = data => {
-    this.graphView.current.runLayout()
+    const state = this.state
+    if (state.selected) {
+      this.sendChangeNote(state.selected.data())
+    }
+    this.graphView.current.loadGraph()
   }
 
-  onSelectNode = data => {
-    this.setState({ ...this.state, selected: data })
+  onSelectNode = node => {
+    this.setState({ ...this.state, selected: node })
   }
 
-  onDeselectNode = data => {
+  onDeselectNode = node => {
     this.setState({ ...this.state, selected: null })
+    this.sendChangeNote(node.data())
   }
 
   updateMarkdown = (_editor, _data, value) => {
-    const state = this.state
-    if (!state.selected)
+    const node = this.state.selected
+    if (!node)
       return
-    const cy = this.graphView.current.cy
-    cy.$(`[id = '${state.selected.id}']`).json({ data: { note: value } })
+    const timestamp = new Date().toISOString()
+    const info = { ...node.data('info'), modified: timestamp }
+    const diff = { data: { note: value, info: info } }
+    node.json(diff)
   }
 
   updateJson = (editor) => {
-    const state = this.state
-    if (!state.selected)
+    const node = this.state.selected
+    if (!node)
       return
     try {
       const code = editor.getValue()
       const info = JSON.parse(code)
-      const cy = this.graphView.current.cy
-      const data = { data: { info: info, label: info['name'] } }
-      cy.$(`[id = '${state.selected.id}']`).json(data)
+      const label = info.name ? info.name : node.data('label')
+      const diff = { data: { info: info, label: label} }
+      node.json(diff)
     }
     catch (e) {
       if (e.name !== "SyntaxError")
@@ -161,7 +188,7 @@ class App extends Component {
         <Row>
           <Col xs="12" lg="8" xl="9">
             <MarkdownEditor
-              value={state.selected ? state.selected.note : null}
+              value={state.selected ? state.selected.data('note') : null}
               onChange={this.updateMarkdown}
               visible={false}
               height={500}
@@ -170,8 +197,8 @@ class App extends Component {
           </Col>
           <Col xs="12" lg="4" xl="3">
             <CodeMirror
-              value={state.selected ? JSON.stringify(state.selected.info, null, 4) : ""}
-              onChange={this.updateJson}
+              value={state.selected ? JSON.stringify(state.selected.data('info'), null, 4) : ""}
+              onChanges={this.updateJson}
               options={{
                 theme: 'monokai',
                 tabSize: 2,
