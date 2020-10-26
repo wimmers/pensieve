@@ -3,7 +3,6 @@ export default
         {
             selector: 'node',
             style: {
-                'label': 'data(label)',
                 "text-wrap": "wrap",
                 'text-valign': 'center',
                 "text-max-width": "90px",
@@ -19,6 +18,13 @@ export default
                 'width': "100px",
                 'height': "50px",
                 "shape": "round-rectangle"
+            }
+        },
+
+        {
+            selector: 'node[label]',
+            style: {
+                'label': 'data(label)'
             }
         },
 
@@ -45,7 +51,13 @@ export default
             selector: 'edge',
             style: {
                 'curve-style': 'bezier',
-                'target-arrow-shape': 'triangle',
+                'target-arrow-shape': 'triangle'
+            }
+        },
+
+        {
+            selector: 'edge[style]',
+            style: {
                 'line-style': 'data(style)'
             }
         }
