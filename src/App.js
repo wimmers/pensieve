@@ -69,7 +69,7 @@ const NameInput = (props) => {
       type="text"
       value={value}
       onChange={(event) => setValue(event.target.value)}
-      className = "mb-2"
+      className="mb-2"
     />
   )
 }
@@ -213,6 +213,8 @@ class App extends Component {
     if (!node)
       return
     const value = editor.getValue()
+    if (value === node.data('note'))
+      return
     const timestamp = new Date().toISOString()
     const info = { ...node.data('info'), modified: timestamp }
     const diff = { data: { note: value, info: info } }
