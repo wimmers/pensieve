@@ -1,13 +1,79 @@
 import './App.css';
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import GraphView from './GraphView';
 import MarkdownEditor from '@uiw/react-markdown-editor';
-import CodeMirror from '@uiw/react-codemirror';
-import 'codemirror/theme/monokai.css';
+import ReactTags from 'react-tag-autocomplete';
+
+
+const enumerate = (list) => {
+  const result = []
+  for (var i = 0; i < list.length; i++) {
+    result[i] = { id: i, name: list[i] }
+  }
+  return result
+}
+
+const deenumerate = (list) => {
+  const result = []
+  for (var i = 0; i < list.length; i++) {
+    result[i] = list[i].name
+  }
+  return result
+}
+
+const Tags = (props) => {
+  const [tags, setTags] = useState(props.tags ? enumerate(props.tags) : [])
+
+  const onDeleteTag = (i) => {
+    const newTags = tags.slice(0)
+    newTags.splice(i, 1)
+    setTags(newTags)
+    props.onChangeTags(deenumerate(newTags))
+  }
+
+  const onAddTag = (tag) => {
+    const newTags = [].concat(tags, tag)
+    setTags(newTags)
+    props.onChangeTags(deenumerate(newTags))
+  }
+
+  return (
+    <ReactTags
+      allowNew={true}
+      // suggestions={state.suggestions}
+      tags={tags}
+      onDelete={onDeleteTag}
+      onAddition={onAddTag}
+    />
+  )
+}
+
+const NameInput = (props) => {
+  const [value, setValue] = useState(props.value)
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      props.onChange(value)
+    }, 300)
+
+    return () => clearTimeout(delayDebounceFn)
+  })
+
+  return (
+    <Form.Control
+      type="text"
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      className = "mb-2"
+    />
+  )
+}
+
 
 const empty_info = {
   "attachments": null,
@@ -88,9 +154,9 @@ class App extends Component {
     if (state.linking && state.selected) {
       let style, label;
       switch (state.linking) {
-        case 'from' : style = 'solid'; label=undefined; break;
-        case 'crossref' : style = 'dashed'; label=undefined; break;
-        case 'link' : style = 'dotted'; label="link"; break;
+        case 'from': style = 'solid'; label = undefined; break;
+        case 'crossref': style = 'dashed'; label = undefined; break;
+        case 'link': style = 'dotted'; label = "link"; break;
       }
       this.graphView.current.addEdge(state.selected.data('id'), node.data('id'), style, label)
       const targetName = node.data('label')
@@ -120,7 +186,7 @@ class App extends Component {
     this.unsetFlags()
   }
 
-  async onRefresh (data) {
+  async onRefresh(data) {
     const state = this.state
     if (state.selected) {
       await this.sendChangeNote(state.selected.data())
@@ -136,6 +202,12 @@ class App extends Component {
     this.setState({ ...this.state, selected: null })
   }
 
+  updateAndSend = (diff) => {
+    const node = this.state.selected
+    node.json(diff)
+    this.sendChangeNote(node.data())
+  }
+
   updateMarkdown = (editor) => {
     const node = this.state.selected
     if (!node)
@@ -144,31 +216,25 @@ class App extends Component {
     const timestamp = new Date().toISOString()
     const info = { ...node.data('info'), modified: timestamp }
     const diff = { data: { note: value, info: info } }
-    node.json(diff)
-    this.sendChangeNote(node.data())
+    this.updateAndSend(diff)
   }
 
-  updateJson = (editor) => {
+  onChangeTags = (tags) => {
     const node = this.state.selected
-    if (!node)
-      return
-    try {
-      const code = editor.getValue()
-      const info = JSON.parse(code)
-      const label = info.name ? info.name : node.data('label')
-      const diff = { data: { info: info, label: label} }
-      node.json(diff)
-      this.sendChangeNote(node.data())
-    }
-    catch (e) {
-      if (e.name !== "SyntaxError")
-        throw e
-    }
+    const diff = { data: { info: { ...node.data('info'), tags } } }
+    this.updateAndSend(diff)
+  }
+
+  onChangeName = (value) => {
+    const node = this.state.selected
+    const diff = { data: { info: { ...node.data('info'), name: value }, label: value } }
+    this.updateAndSend(diff)
   }
 
   render() {
     const state = this.state
-    const linkDisabled = !state.selected
+    const node = state.selected
+    const linkDisabled = !node
     return ([
       <Container fluid>
         <div className="graphview" id="graphview-container">
@@ -206,7 +272,7 @@ class App extends Component {
         <Row>
           <Col xs="12" lg="8" xl="9">
             <MarkdownEditor
-              value={state.selected ? state.selected.data('note') : null}
+              value={node ? node.data('note') : null}
               onBlur={this.updateMarkdown}
               visible={false}
               height={500}
@@ -214,15 +280,19 @@ class App extends Component {
             />
           </Col>
           <Col xs="12" lg="4" xl="3">
-            <CodeMirror
-              value={state.selected ? JSON.stringify(state.selected.data('info'), null, 4) : ""}
-              onChanges={this.updateJson}
-              options={{
-                theme: 'monokai',
-                tabSize: 2,
-                mode: 'json',
-              }}
-            />
+            {
+              !(node && node.data('info')) ? '' :
+                <div>
+                  <NameInput
+                    value={node.data('label')}
+                    onChange={this.onChangeName}
+                  />{' '}
+                  <Tags
+                    tags={node.data('info').tags}
+                    onChangeTags={this.onChangeTags}
+                  />
+                </div>
+            }
           </Col>
         </Row>
       </Container>
