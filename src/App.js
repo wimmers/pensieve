@@ -53,7 +53,7 @@ const Tags = (props) => {
   )
 }
 
-const NameInput = (props) => {
+const Input = (props) => {
   const [value, setValue] = useState(props.value)
 
   useEffect(() => {
@@ -96,10 +96,11 @@ class App extends Component {
   state = {
     selected: undefined,
     adding: null,
-    linking: null
+    linking: null,
+    searchQuery: ''
   }
 
-  graphView = React.createRef();
+  graphView = React.createRef()
 
   markdownEditor = React.createRef()
 
@@ -192,6 +193,7 @@ class App extends Component {
       await this.sendChangeNote(state.selected.data())
     }
     this.graphView.current.loadGraph()
+    this.setState({ ...this.state, searchQuery: '' })
   }
 
   onSelectNode = node => {
@@ -231,6 +233,22 @@ class App extends Component {
     const node = this.state.selected
     const diff = { data: { info: { ...node.data('info'), name: value }, label: value } }
     this.updateAndSend(diff)
+  }
+
+  onSearch = (event) => {
+    const value = event.target.value
+    this.setState({ ...this.state, searchQuery: value })
+    if (!value || this.state.searchQuery === value)
+      return
+    const graphView = this.graphView.current
+    const cy = graphView.cy
+    const query = `node[label *= "${value}"], node[note *= "${value}"]`
+    var connected = cy.$(query)
+    connected = connected.union(connected.neighborhood())
+    const notConnected = cy.elements().not(connected);
+    const removed = cy.remove(notConnected);
+    if (removed.length > 0)
+      graphView.runLayout()
   }
 
   render() {
@@ -284,8 +302,8 @@ class App extends Component {
           <Col xs="12" lg="4" xl="3">
             {
               !(node && node.data('info')) ? '' :
-                <div>
-                  <NameInput
+                <div className='mb-3'>
+                  <Input
                     value={node.data('label')}
                     onChange={this.onChangeName}
                   />{' '}
@@ -295,6 +313,17 @@ class App extends Component {
                   />
                 </div>
             }
+            <div>
+              <div>
+                <span>Search:</span>
+                <Form.Control
+                  type="text"
+                  value={state.searchQuery}
+                  onChange={this.onSearch}
+                  className="mb-2"
+                />
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
