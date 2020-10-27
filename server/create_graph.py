@@ -6,9 +6,9 @@ import itertools
 title_re = (
     r"---"
     r"(\nattachments: \[(?P<attachments>[^\]]+)\])?"
-    r"(\ndeleted: (?P<deleted>true))?"
-    r"(\nfavorited: (?P<favorited>true))?"
-    r"(\npinned: (?P<pinned>true))?"
+    r"(\ndeleted: (?P<deleted>(true|false)))?"
+    r"(\nfavorited: (?P<favorited>(true|false)))?"
+    r"(\npinned: (?P<pinned>(true|false)))?"
     r"(\ntags: \[(?P<tags>([/\w]+, )*[/\w]+)\])?"
     r"\ntitle: (?P<name>[^\n]+)"
     r"\ncreated: '(?P<created>[^\n]+)'"
@@ -16,7 +16,7 @@ title_re = (
     r"\n---\n\n"
 )
 
-link_re = r"\[(?P<type>[^\]]+)\]\(@note/(?P<name>[\w\s]+)\.md\)"
+link_re = r"\[(?P<type>[^\]]+)\]\(@note/(?P<name>[^().\[\]]+)\.md\)"
 
 
 def parse_text(text):
