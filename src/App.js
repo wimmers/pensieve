@@ -127,17 +127,18 @@ class App extends Component {
 
   onDeselectNode = node => {
     this.setState({ ...this.state, selected: null })
-    this.sendChangeNote(node.data())
   }
 
-  updateMarkdown = (_editor, _data, value) => {
+  updateMarkdown = (editor) => {
     const node = this.state.selected
     if (!node)
       return
+    const value = editor.getValue()
     const timestamp = new Date().toISOString()
     const info = { ...node.data('info'), modified: timestamp }
     const diff = { data: { note: value, info: info } }
     node.json(diff)
+    this.sendChangeNote(node.data())
   }
 
   updateJson = (editor) => {
@@ -150,6 +151,7 @@ class App extends Component {
       const label = info.name ? info.name : node.data('label')
       const diff = { data: { info: info, label: label} }
       node.json(diff)
+      this.sendChangeNote(node.data())
     }
     catch (e) {
       if (e.name !== "SyntaxError")
@@ -194,7 +196,7 @@ class App extends Component {
           <Col xs="12" lg="8" xl="9">
             <MarkdownEditor
               value={state.selected ? state.selected.data('note') : null}
-              onChange={this.updateMarkdown}
+              onBlur={this.updateMarkdown}
               visible={false}
               height={500}
               ref={this.markdownEditor}
