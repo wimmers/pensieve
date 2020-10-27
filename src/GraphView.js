@@ -47,13 +47,14 @@ export default class GraphView extends Component {
         return node
     }
 
-    addEdge = (source, target, style) => {
+    addEdge = (source, target, style, label=undefined) => {
         this.cy.add({
             group: 'edges',
             data: {
                 source: source,
                 target: target,
-                style: style
+                style: style,
+                label: label
             }
         })
     }

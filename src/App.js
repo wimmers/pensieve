@@ -68,6 +68,10 @@ class App extends Component {
     this.setState({ ...this.state, linking: "crossref" })
   }
 
+  onAddLink = data => {
+    this.setState({ ...this.state, linking: "link" })
+  }
+
   unsetFlags = () => {
     this.setState({ ...this.state, adding: null, linking: null })
   }
@@ -82,10 +86,13 @@ class App extends Component {
   onTapNode = node => {
     const state = this.state
     if (state.linking && state.selected) {
-      const style = state.linking === 'crossref' ?
-        "dashed" :
-        "solid"
-      this.graphView.current.addEdge(state.selected.data('id'), node.data('id'), style)
+      let style, label;
+      switch (state.linking) {
+        case 'from' : style = 'solid'; label=undefined; break;
+        case 'crossref' : style = 'dashed'; label=undefined; break;
+        case 'link' : style = 'dotted'; label="link"; break;
+      }
+      this.graphView.current.addEdge(state.selected.data('id'), node.data('id'), style, label)
       const targetName = node.data('label')
       var text = `[#${state.linking}](@note/${targetName}.md)`
       this.insertTextAtCursor(text)
@@ -187,6 +194,10 @@ class App extends Component {
           <Button className="mb-1" variant="dark"
             onClick={this.onAddCrossref} disabled={linkDisabled}>
             + crossref
+          </Button>{' '}
+          <Button className="mb-1" variant="light"
+            onClick={this.onAddLink} disabled={linkDisabled}>
+            + link
           </Button>{' '}
           <Button className="mb-1" variant="danger" onClick={this.onRefresh}>
             refresh

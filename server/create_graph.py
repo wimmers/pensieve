@@ -28,9 +28,7 @@ def parse_text(text):
     if tags is not None:
         tags = tags.split(", ")
         header_info['tags'] = tags
-    types = ["#crossref", "#from"]
     links = re.findall(link_re, text)
-    links = [(typ[1:], name) for typ, name in links if typ in types]
     note = text[m.end():]
     return {"info": header_info, "links": links, "note": note}
 
@@ -106,8 +104,12 @@ def convert_data(data):
                 continue
             target_id = id_mapping[target]
             edge_data = {"source": source_id, "target": target_id}
-            if typ == "crossref":
+            if typ == "#crossref":
                 edge_data["style"] = "dashed"
+            elif typ != "#from":
+                edge_data["style"] = "dotted"
+            else:
+                edge_data["label"] = typ
             edge = {"data": edge_data}
             edges.append(edge)
     return nodes + edges
