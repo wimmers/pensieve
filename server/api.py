@@ -6,10 +6,8 @@ import sys
 import os
 from create_graph import read_and_convert
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 app.config['SECRET_KEY'] = 'abcd'
-
-THE_PATH = "../scratch"
 
 HEADER_FIELDS = [
     "files",
@@ -24,8 +22,9 @@ HEADER_FIELDS = [
 
 db = {}
 
+
 def make_file_name(name):
-    return os.path.join(THE_PATH, f"{name}.md")
+    return os.path.join(app.config['path'], f"{name}.md")
 
 
 def default_serializer(k):
@@ -89,11 +88,6 @@ def apply_change(old, new):
         delete_note(old_name)
 
 
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
-
-
 def create_db(graph):
     global db
     db = {}
@@ -105,9 +99,14 @@ def create_db(graph):
             db[data['id']] = data
 
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+
 @app.route('/init')
 def get_init_json():
-    graph = read_and_convert(THE_PATH)
+    graph = read_and_convert(app.config['path'])
     create_db(graph)
     return jsonify(graph)
 
@@ -132,3 +131,8 @@ def change_note():
     apply_change(old, note)
     db[note['id']] = note
     return {}
+
+
+if __name__ == '__main__':
+    app.config['path'] = sys.argv[1]
+    app.run(debug=False)
