@@ -97,7 +97,8 @@ class App extends Component {
     selected: undefined,
     adding: null,
     linking: null,
-    searchQuery: ''
+    searchQuery: '',
+    lastCursor: undefined
   }
 
   graphView = React.createRef()
@@ -145,9 +146,9 @@ class App extends Component {
 
   insertTextAtCursor(text) {
     const editor = this.markdownEditor.current.CodeMirror.editor
-    var doc = editor.getDoc();
-    var cursor = doc.getCursor();
-    doc.replaceRange(text, cursor);
+    const doc = editor.getDoc()
+    const cursor = this.state.lastCursor || doc.getCursor()
+    doc.replaceRange(text, cursor)
   }
 
   onTapNode = node => {
@@ -201,7 +202,7 @@ class App extends Component {
   }
 
   onDeselectNode = node => {
-    this.setState({ ...this.state, selected: null })
+    this.setState({ ...this.state, selected: null, lastCursor: null })
   }
 
   updateAndSend = (diff) => {
@@ -211,6 +212,9 @@ class App extends Component {
   }
 
   updateMarkdown = (editor) => {
+    const cursor = this.markdownEditor.current.CodeMirror.editor.getDoc().getCursor()
+    if (cursor.sticky || cursor.line != 0 || cursor.ch != 0)
+      this.setState({...this.state, lastCursor: cursor})
     const node = this.state.selected
     if (!node)
       return
