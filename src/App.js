@@ -242,7 +242,7 @@ class App extends Component {
 
   onSearch = (event) => {
     const value = event.target.value
-    this.setState({ ...this.state, searchQuery: value })
+    this.setState({ ...this.state, searchQuery: value, selected: undefined })
     if (!value || this.state.searchQuery === value)
       return
     const graphView = this.graphView.current
