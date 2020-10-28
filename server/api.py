@@ -134,5 +134,8 @@ def change_note():
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print("Usage: python3 api.py FOLDER")
+        sys.exit(1)
     app.config['path'] = sys.argv[1]
     app.run(debug=False)
