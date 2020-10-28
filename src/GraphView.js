@@ -25,7 +25,7 @@ export default class GraphView extends Component {
             elements: json,
             loading: false,
             w: this.container.current.offsetWidth,
-            h: 800
+            h: this.container.current.offsetHeight
         })
         this.runLayout()
         this.setUpListeners()
@@ -95,7 +95,7 @@ export default class GraphView extends Component {
 
     render() {
         return (
-            <div ref={this.container}>
+            <div ref={this.container} id="graphview-container">
                 {this.state.loading ?
                     <p>Waiting for data to load!</p> :
                     <CytoscapeComponent

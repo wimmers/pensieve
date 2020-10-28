@@ -257,7 +257,7 @@ class App extends Component {
     const linkDisabled = !node
     return ([
       <Container fluid>
-        <div className="graphview" id="graphview-container">
+        <div className="graphview">
           <GraphView
             onSelectEdge={this.onSelectEdge}
             onSelectNode={this.onSelectNode}
@@ -290,7 +290,7 @@ class App extends Component {
           </Button>
         </div>
         <Row>
-          <Col xs="12" lg="8" xl="9">
+          <Col xs="12" lg="8" xl="9" className='mb-2'>
             <MarkdownEditor
               value={node ? node.data('note') : null}
               onBlur={this.updateMarkdown}
@@ -302,7 +302,7 @@ class App extends Component {
           <Col xs="12" lg="4" xl="3">
             {
               !(node && node.data('info')) ? '' :
-                <div className='mb-3'>
+                <div className='mb-2'>
                   <Input
                     value={node.data('label')}
                     onChange={this.onChangeName}
@@ -320,7 +320,6 @@ class App extends Component {
                   type="text"
                   value={state.searchQuery}
                   onChange={this.onSearch}
-                  className="mb-2"
                 />
               </div>
             </div>

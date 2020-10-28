@@ -182,3 +182,35 @@
   opacity: 0.5;
   cursor: auto;
 }
+
+
+/* Breakpoints to set height of graph container according to screen height */
+@media (min-height: 0px) {
+  #graphview-container {
+    height: 50vh
+  }
+}
+
+@media (min-height: 576px) {
+  #graphview-container {
+    height: 50vh
+  }
+}
+
+@media (min-height: 768px) {
+  #graphview-container {
+    height: 50vh
+  }
+}
+
+@media (min-height: 992px) {
+  #graphview-container {
+    height: 700px
+  }
+}
+
+@media (min-height: 1200px) {
+  #graphview-container {
+    height: 800px
+  }
+}
