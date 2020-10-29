@@ -18,17 +18,23 @@ export default class GraphView extends Component {
 
 
     async loadGraph() {
-        this.setState({...this.state, loading: true})
-        const res = await fetch('/init', { mode: 'no-cors' })
-        const json = await res.json()
-        this.setState({
-            elements: json,
-            loading: false,
-            w: this.container.current.offsetWidth,
-            h: this.container.current.offsetHeight
-        })
-        this.runLayout()
-        this.setUpListeners()
+        if (process.env.REACT_APP_DEMO && !this.state.loading) {
+            this.runLayout()
+        }
+        else {
+            const path = process.env.REACT_APP_DEMO ? 'notes.json' : '/init'
+            this.setState({ ...this.state, loading: true })
+            const res = await fetch(path, { mode: 'no-cors' })
+            const json = await res.json()
+            this.setState({
+                elements: json,
+                loading: false,
+                w: this.container.current.offsetWidth,
+                h: this.container.current.offsetHeight
+            })
+            this.runLayout()
+            this.setUpListeners()
+        }
     }
 
 
@@ -47,7 +53,7 @@ export default class GraphView extends Component {
         return node
     }
 
-    addEdge = (source, target, style, label=undefined) => {
+    addEdge = (source, target, style, label = undefined) => {
         this.cy.add({
             group: 'edges',
             data: {

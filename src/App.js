@@ -118,11 +118,13 @@ class App extends Component {
   }
 
   sendAddNote = node => {
-    return this.sendJSON('/add', node)
+    if (!process.env.REACT_APP_DEMO)
+      return this.sendJSON('/add', node)
   }
 
   sendChangeNote = (node) => {
-    return this.sendJSON('/update', node)
+    if (!process.env.REACT_APP_DEMO)
+      return this.sendJSON('/update', node)
   }
 
   onAddNote = data => {
