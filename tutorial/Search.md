@@ -1,17 +1,13 @@
 ---
 title: Search
 created: '2020-10-28T16:37:02.739Z'
-modified: '2020-10-28T16:45:18.027Z'
+modified: '2020-10-29T14:57:21.481Z'
 ---
 
-Pensieve works on a plain folder of Markdown (`.md`) files like this folder (`tutorial`).
+You can also search through your notes and tags by typing in the search box.
 
-Every grey node in the graph above presents a single file/note in the folder.
+This will focus the graph on relevant notes and their neighbors.
 
-This means every note in the folder can be edited by many other tools, e.g.:
-- most code/text editors,
-- or specialized tools like [Notable](https://notable.app).
+If you want to see the full graph again, press `refresh`.
 
-To continue, click on ["Editing"](Editing.md).
-
-
+To continue, go to ["Done!"](Done!.md).
