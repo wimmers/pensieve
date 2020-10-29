@@ -12,5 +12,6 @@ Try to add a few tags to this note:
 When you are done, press `refresh` and go back to this note.
 
 You should now see the tags as nodes in the graph.
+Note that this does not work in the demo. 
 
 Continue to ["Search"](Search.md).
