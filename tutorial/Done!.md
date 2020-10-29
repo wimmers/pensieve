@@ -1,7 +1,7 @@
 ---
 title: Done!
 created: '2020-10-29T14:42:55.665Z'
-modified: '2020-10-29T14:49:33.269Z'
+modified: '2020-10-29T14:52:06.951Z'
 ---
 
 # End of tutorial
@@ -9,7 +9,7 @@ modified: '2020-10-29T14:49:33.269Z'
 You have reached the end of the tutorial.
 
 Here are a few more things you can try:
-- add a note
+- [add a note](Adding a note.md)
 - refresh
 
 ## Using the app
