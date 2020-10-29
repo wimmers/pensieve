@@ -1,6 +1,8 @@
 import re
 import os
 import itertools
+import sys
+import json
 
 
 title_re = (
@@ -117,3 +119,16 @@ def convert_data(data):
 
 def read_and_convert(in_path):
     return convert_data(read_directory(in_path))
+
+
+def read_and_write(in_path, out_path):
+    converted = read_and_convert(in_path)
+    with open(out_path, 'w') as f:
+        json.dump(converted, f, indent=4)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python3 create_graph.py DIRECTORY OUT_FILE")
+        sys.exit(1)
+    read_and_write(sys.argv[1], sys.argv[2])
