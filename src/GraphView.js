@@ -22,7 +22,7 @@ export default class GraphView extends Component {
             this.runLayout()
         }
         else {
-            const path = process.env.REACT_APP_DEMO ? 'notes.json' : '/init'
+            const path = process.env.REACT_APP_DEMO ? 'tutorial.json' : '/init'
             this.setState({ ...this.state, loading: true })
             const res = await fetch(path, { mode: 'no-cors' })
             const json = await res.json()
