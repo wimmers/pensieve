@@ -224,7 +224,7 @@ class App extends Component {
 
   updateMarkdown = (editor) => {
     const cursor = this.markdownEditor.current.CodeMirror.editor.getDoc().getCursor()
-    if (cursor.sticky || cursor.line != 0 || cursor.ch != 0)
+    if (cursor.sticky || cursor.line !== 0 || cursor.ch !== 0)
       this.setState({...this.state, lastCursor: cursor})
     const node = this.state.selected
     if (!node)
