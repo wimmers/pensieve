@@ -210,6 +210,8 @@ class App extends Component {
 
   onSelectNode = node => {
     this.setState({ ...this.state, selected: node })
+    const value = node.data('note') || ''
+    this.markdownEditor.current.CodeMirror.editor.setValue(value)
   }
 
   onDeselectNode = node => {
@@ -223,7 +225,7 @@ class App extends Component {
   }
 
   updateMarkdown = (editor) => {
-    const cursor = this.markdownEditor.current.CodeMirror.editor.getDoc().getCursor()
+    const cursor = editor.getDoc().getCursor()
     if (cursor.sticky || cursor.line !== 0 || cursor.ch !== 0)
       this.setState({...this.state, lastCursor: cursor})
     const node = this.state.selected
@@ -235,6 +237,7 @@ class App extends Component {
     const timestamp = new Date().toISOString()
     const info = { ...node.data('info'), modified: timestamp }
     const diff = { data: { note: value, info: info } }
+    editor.setValue(value)
     this.updateAndSend(diff)
   }
 
@@ -307,7 +310,6 @@ class App extends Component {
         <Row>
           <Col xs="12" lg="8" xl="9" className='mb-2'>
             <MarkdownEditor
-              value={node ? node.data('note') : null}
               onBlur={this.updateMarkdown}
               visible={false}
               height={500}
