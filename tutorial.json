@@ -30,7 +30,7 @@
             },
             "label": "Known problems",
             "id": "1",
-            "note": "# Known problems\n- Notes with **duplicate titles**: they can exist happily on the disk but if you edit them, the wrong file might be written! This can result in **data loss**."
+            "note": "# Known problems\n\n- Notes with **duplicate titles**: they can exist happily on the disk but if you edit them, the wrong file might be written to! This can result in **data loss**."
         }
     },
     {
@@ -47,7 +47,7 @@
             },
             "label": "Done!",
             "id": "2",
-            "note": "# End of tutorial\n\nYou have reached the end of the tutorial.\n\nHere are a few more things you can try:\n- [add a note](Adding a note.md)\n- refresh\n\n## Using the app\nIf you are ready to use the app seriously, do the following:\n- Create a folder for your notes\n- Run `python3 api.py <path-to-your-notes-folder>`\n- As the app is in a very early stage of development, I strongly recommend to put your notes under some kind of version control or backup/synchronization solution.\n\n## Known problems/feedback\nYou can find a list of known problems [here](Known problems.md).\n\nTo report any problems or to provide feedback, you can:\n- open an issue on [Github](https://github.com/wimmers/pensieve/issues)\n- or drop me an email: `wimmers <at> in.tum.de`"
+            "note": "# End of tutorial\n\nYou have reached the end of the tutorial.\n\nHere are a few more things you can try:\n\n- [add a note](Adding a note.md)\n- refresh\n\n## Using the app\n\nIf you are ready to use the app seriously, do the following:\n\n- Create a folder for your notes\n- Run `python3 api.py <path-to-your-notes-folder>`\n- As the app is in a very early stage of development, I strongly recommend putting your notes under some kind of version control or backup/synchronization solution.\n\n## Known problems/feedback\n\nYou can find a list of known problems [here](Known problems.md).\n\nTo report any problems or to provide feedback, you can:\n\n- open an issue on [Github](https://github.com/wimmers/pensieve/issues)\n- or drop me an email: `wimmers <at> in.tum.de`"
         }
     },
     {
@@ -81,7 +81,7 @@
             },
             "label": "Start (click me!)",
             "id": "4",
-            "note": "# Pensieve - Tutorial\n\nThis is a quick introduction on how to use Pensieve.\n\nPensieve lets you write down your notes as simple Markdown (`.md`) files.\nTo organize these notes, it allows you to organize your notes as a graph\nlike the one displayed above.\n\nYou can start by clicking the \"eye\" icon in the upper right corner of this editor.\nThis gives you a nicer preview of these notes.\n\nWhen you are ready to continue the the tutorial, click on the node named [\"Notes\"](Notes.md)."
+            "note": "# Pensieve - Tutorial\n\nThis is a quick introduction to Pensieve.\n\nPensieve lets you write down your notes as simple Markdown (`.md`) files.\nTo organize these notes, it allows you to organize them as a graph\nlike the one displayed above.\n\nYou can start by clicking the \"eye\" icon in the upper right corner of this editor.\nThis gives you a nicer preview of the notes.\n\nWhen you are ready to continue the tutorial, click on the node named [\"Notes\"](Notes.md)."
         }
     },
     {
@@ -98,7 +98,7 @@
             },
             "label": "Tags",
             "id": "5",
-            "note": "Notes can be tagged. Tags will be displayed as special nodes in the graph.\n\nTry to add a few tags to this note:\n- Type in the field that says \"Add new tag\" and press Enter\n\nWhen you are done, press `refresh` and go back to this note.\n\nYou should now see the tags as nodes in the graph.\n\nContinue to [\"Search\"](Search.md)."
+            "note": "Notes can be tagged. Tags will be displayed as special nodes in the graph.\n\nTry to add a few tags to this note:\n\n- Type in the field that says \"Add new tag\" and press Enter\n\nWhen you are done, press `refresh` and go back to this note.\n\nYou should now see the tags as nodes in the graph.\nNote that this does not work in the demo. \n\nContinue to [\"Search\"](Search.md)."
         }
     },
     {
@@ -115,7 +115,7 @@
             },
             "label": "Links",
             "id": "6",
-            "note": "The arrows between nodes (or notes) in the graph,\nrepresent links that are found in the note texts.\n\nTry adding a link to the start node:\n- Move the cursor here:\n- Press the button `+ link`\n- Click on the start node\n- Type a name for the link, e.g. \"start node\"\n\nYou should see that a link was added at the cursor position.\n\nThere are three types of links:\n- regular links (dashed lines, button `+link`)\n- cross references (dotted lines, button `+crossref`)\n- references to a note's origin (from lines, button `+from`)\n\nYou can use these links as you like.\nNote that the last two types are in a format that is compatible with [Notable](https://notable.app).\n\nWhen you are done playing with links, go to [\"Tags\"](Tags.md)."
+            "note": "The arrows between nodes (or notes) in the graph,\nrepresent links that are found in the notes' texts.\n\nTry adding a link to the start node:\n- Move the cursor here:\n- Press the button `+ link`\n- Click on the start node\n- Type a name for the link, e.g. \"start node\"\n\nYou should see that a link was added at the cursor position.\n\nThere are three types of links:\n- regular links (dashed lines, button `+link`)\n- cross references (dotted lines, button `+crossref`)\n- references to a note's origin (solid lines, button `+from`)\n\nYou can use these links as you like.\nNote that the last two types are in a format that is compatible with [Notable](https://notable.app).\n\nWhen you are done playing with links, go to [\"Tags\"](Tags.md)."
         }
     },
     {
@@ -132,7 +132,7 @@
             },
             "label": "Notes",
             "id": "7",
-            "note": "Pensieve works on a plain folder of Markdown (`.md`) files like this folder (`tutorial`).\n\nEvery grey node in the graph above presents a single file/note in the folder.\n\nThis means every note in the folder can be edited by many other tools, e.g.:\n- most code/text editors,\n- or specialized tools like [Notable](https://notable.app).\n\nTo continue, click on [\"Editing\"](Editing.md)."
+            "note": "Pensieve works on a plain folder of Markdown (`.md`) files like this folder (`tutorial`).\n\nEvery grey node in the graph above presents a single file/note in the folder.\n\nThis means every note in the folder can be edited by many other tools, e.g.:\n\n- most code/text editors,\n- or specialized tools like [Notable](https://notable.app).\n\nTo continue, click on [\"Editing\"](Editing.md)."
         }
     },
     {
