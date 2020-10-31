@@ -1,4 +1,27 @@
-# Getting Started with Create React App
+# Pensieve
+
+Organize your thoughts like Dumbledore!
+
+You can try a [demo](https://wimmers.github.io/pensieve/) online.
+
+To run locally, clone or download the repository, and run:
+```
+cd pensieve
+npm install
+npm run build
+cd server
+pip3 install flask
+python3 api.py ../tutorial
+```
+
+This should open a new browser window/tab.
+Otherwise, you can manually open the URL `http://127.0.0.1:5000/` in your browser.
+You should see a tutorial that explains the basic usage of the app.
+
+This has been tested with node version v12.19.0 and Python 3.7.3.
+
+
+## Development notes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
