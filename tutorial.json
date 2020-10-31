@@ -1,0 +1,211 @@
+[
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Search",
+                "created": "2020-10-28T16:37:02.739Z",
+                "modified": "2020-10-29T14:57:21.481Z"
+            },
+            "label": "Search",
+            "id": "0",
+            "note": "You can also search through your notes and tags by typing in the search box.\n\nThis will focus the graph on relevant notes and their neighbors.\n\nIf you want to see the full graph again, press `refresh`.\n\nTo continue, go to [\"Done!\"](Done!.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Known problems",
+                "created": "2020-10-29T13:56:48.845Z",
+                "modified": "2020-10-29T13:59:21.940Z"
+            },
+            "label": "Known problems",
+            "id": "1",
+            "note": "# Known problems\n- Notes with **duplicate titles**: they can exist happily on the disk but if you edit them, the wrong file might be written! This can result in **data loss**."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Done!",
+                "created": "2020-10-29T14:42:55.665Z",
+                "modified": "2020-10-29T14:52:06.951Z"
+            },
+            "label": "Done!",
+            "id": "2",
+            "note": "# End of tutorial\n\nYou have reached the end of the tutorial.\n\nHere are a few more things you can try:\n- [add a note](Adding a note.md)\n- refresh\n\n## Using the app\nIf you are ready to use the app seriously, do the following:\n- Create a folder for your notes\n- Run `python3 api.py <path-to-your-notes-folder>`\n- As the app is in a very early stage of development, I strongly recommend to put your notes under some kind of version control or backup/synchronization solution.\n\n## Known problems/feedback\nYou can find a list of known problems [here](Known problems.md).\n\nTo report any problems or to provide feedback, you can:\n- open an issue on [Github](https://github.com/wimmers/pensieve/issues)\n- or drop me an email: `wimmers <at> in.tum.de`"
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Editing",
+                "created": "2020-10-29T14:30:06.612Z",
+                "modified": "2020-10-29T14:42:10.781Z"
+            },
+            "label": "Editing",
+            "id": "3",
+            "note": "You can edit a note by first clicking on it and then typing text in this editor.\n\nYour changes will automatically be saved when you click anywhere else.\n\nYou can also edit a note's title by clicking on it.\n\nYou can now try to play with the editor.\nWhen you are done, go to [\"Links\"](Links.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Start (click me!)",
+                "created": "2020-10-29T14:33:12.596Z",
+                "modified": "2020-10-29T14:54:02.533Z"
+            },
+            "label": "Start (click me!)",
+            "id": "4",
+            "note": "# Pensieve - Tutorial\n\nThis is a quick introduction on how to use Pensieve.\n\nPensieve lets you write down your notes as simple Markdown (`.md`) files.\nTo organize these notes, it allows you to organize your notes as a graph\nlike the one displayed above.\n\nYou can start by clicking the \"eye\" icon in the upper right corner of this editor.\nThis gives you a nicer preview of these notes.\n\nWhen you are ready to continue the the tutorial, click on the node named [\"Notes\"](Notes.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Tags",
+                "created": "2020-10-28T16:44:07.579Z",
+                "modified": "2020-10-29T13:53:51.440Z"
+            },
+            "label": "Tags",
+            "id": "5",
+            "note": "Notes can be tagged. Tags will be displayed as special nodes in the graph.\n\nTry to add a few tags to this note:\n- Type in the field that says \"Add new tag\" and press Enter\n\nWhen you are done, press `refresh` and go back to this note.\n\nYou should now see the tags as nodes in the graph.\n\nContinue to [\"Search\"](Search.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Links",
+                "created": "2020-10-28T16:44:17.328Z",
+                "modified": "2020-10-28T16:55:56.583Z"
+            },
+            "label": "Links",
+            "id": "6",
+            "note": "The arrows between nodes (or notes) in the graph,\nrepresent links that are found in the note texts.\n\nTry adding a link to the start node:\n- Move the cursor here:\n- Press the button `+ link`\n- Click on the start node\n- Type a name for the link, e.g. \"start node\"\n\nYou should see that a link was added at the cursor position.\n\nThere are three types of links:\n- regular links (dashed lines, button `+link`)\n- cross references (dotted lines, button `+crossref`)\n- references to a note's origin (from lines, button `+from`)\n\nYou can use these links as you like.\nNote that the last two types are in a format that is compatible with [Notable](https://notable.app).\n\nWhen you are done playing with links, go to [\"Tags\"](Tags.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Notes",
+                "created": "2020-10-29T14:53:16.103Z",
+                "modified": "2020-10-29T14:53:41.413Z"
+            },
+            "label": "Notes",
+            "id": "7",
+            "note": "Pensieve works on a plain folder of Markdown (`.md`) files like this folder (`tutorial`).\n\nEvery grey node in the graph above presents a single file/note in the folder.\n\nThis means every note in the folder can be edited by many other tools, e.g.:\n- most code/text editors,\n- or specialized tools like [Notable](https://notable.app).\n\nTo continue, click on [\"Editing\"](Editing.md)."
+        }
+    },
+    {
+        "data": {
+            "info": {
+                "attachments": null,
+                "deleted": null,
+                "favorited": null,
+                "pinned": null,
+                "tags": null,
+                "name": "Adding a note",
+                "created": "2020-10-29T14:50:13.023Z",
+                "modified": "2020-10-29T14:51:47.712Z"
+            },
+            "label": "Adding a note",
+            "id": "8",
+            "note": "To add a note, press `+ note` above and then click anywhere in the graph canvas.\n\nRemember to change the title of the note, as notes with duplicated titles will overwrite each other!"
+        }
+    },
+    {
+        "data": {
+            "source": "0",
+            "target": "2",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "2",
+            "target": "8",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "2",
+            "target": "1",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "3",
+            "target": "6",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "4",
+            "target": "7",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "5",
+            "target": "0",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "6",
+            "target": "5",
+            "style": "dotted"
+        }
+    },
+    {
+        "data": {
+            "source": "7",
+            "target": "3",
+            "style": "dotted"
+        }
+    }
+]

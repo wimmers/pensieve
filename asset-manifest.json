@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/pensieve/static/css/main.af15c451.chunk.css",
+    "main.js": "/pensieve/static/js/main.f143d528.chunk.js",
+    "main.js.map": "/pensieve/static/js/main.f143d528.chunk.js.map",
+    "runtime-main.js": "/pensieve/static/js/runtime-main.0a506ebf.js",
+    "runtime-main.js.map": "/pensieve/static/js/runtime-main.0a506ebf.js.map",
+    "static/css/2.f68302ef.chunk.css": "/pensieve/static/css/2.f68302ef.chunk.css",
+    "static/js/2.23ac8b10.chunk.js": "/pensieve/static/js/2.23ac8b10.chunk.js",
+    "static/js/2.23ac8b10.chunk.js.map": "/pensieve/static/js/2.23ac8b10.chunk.js.map",
+    "static/js/3.210fed92.chunk.js": "/pensieve/static/js/3.210fed92.chunk.js",
+    "static/js/3.210fed92.chunk.js.map": "/pensieve/static/js/3.210fed92.chunk.js.map",
+    "index.html": "/pensieve/index.html",
+    "static/css/2.f68302ef.chunk.css.map": "/pensieve/static/css/2.f68302ef.chunk.css.map",
+    "static/css/main.af15c451.chunk.css.map": "/pensieve/static/css/main.af15c451.chunk.css.map",
+    "static/js/2.23ac8b10.chunk.js.LICENSE.txt": "/pensieve/static/js/2.23ac8b10.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0a506ebf.js",
+    "static/css/2.f68302ef.chunk.css",
+    "static/js/2.23ac8b10.chunk.js",
+    "static/css/main.af15c451.chunk.css",
+    "static/js/main.f143d528.chunk.js"
+  ]
+}
