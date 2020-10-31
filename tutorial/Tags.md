@@ -7,6 +7,7 @@ modified: '2020-10-29T13:53:51.440Z'
 Notes can be tagged. Tags will be displayed as special nodes in the graph.
 
 Try to add a few tags to this note:
+
 - Type in the field that says "Add new tag" and press Enter
 
 When you are done, press `refresh` and go back to this note.

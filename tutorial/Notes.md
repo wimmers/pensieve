@@ -9,6 +9,7 @@ Pensieve works on a plain folder of Markdown (`.md`) files like this folder (`tu
 Every grey node in the graph above presents a single file/note in the folder.
 
 This means every note in the folder can be edited by many other tools, e.g.:
+
 - most code/text editors,
 - or specialized tools like [Notable](https://notable.app).
 
