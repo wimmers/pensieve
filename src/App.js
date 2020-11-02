@@ -56,20 +56,13 @@ const Tags = (props) => {
 const Input = (props) => {
   const [value, setValue] = useState(props.value)
 
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      props.onChange(value)
-    }, 300)
-
-    return () => clearTimeout(delayDebounceFn)
-  })
-
   return (
     <Form.Control
       plaintext
       type="text"
       value={value}
       onChange={(event) => setValue(event.target.value)}
+      onBlur={_ => props.onBlur(value)}
       className="mb-2 title"
     />
   )
@@ -322,7 +315,7 @@ class App extends Component {
                 <div className='mb-2'>
                   <Input
                     value={node.data('label')}
-                    onChange={this.onChangeName}
+                    onBlur={this.onChangeName}
                   />{' '}
                   <Tags
                     tags={node.data('info').tags}
