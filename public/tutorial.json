@@ -13,7 +13,7 @@
             },
             "label": "Search",
             "id": "0",
-            "note": "You can also search through your notes and tags by typing in the search box.\n\nThis will focus the graph on relevant notes and their neighbors.\n\nIf you want to see the full graph again, press `refresh`.\n\nTo continue, go to [\"Done!\"](Done!.md)."
+            "note": "You can also search through your notes and tags by typing in the search box.\n\nThis will focus the graph on relevant notes and their neighbors.\n\nIf you want to see the full graph again, press `refresh`.\n(In the demo, this will reload the original graph).\n\nTo continue, go to [\"Done!\"](Done!.md)."
         }
     },
     {
