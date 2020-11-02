@@ -18,23 +18,18 @@ export default class GraphView extends Component {
 
 
     async loadGraph() {
-        if (process.env.REACT_APP_DEMO && !this.state.loading) {
-            this.runLayout()
-        }
-        else {
-            const path = process.env.REACT_APP_DEMO ? 'tutorial.json' : '/init'
-            this.setState({ ...this.state, loading: true })
-            const res = await fetch(path, { mode: 'no-cors' })
-            const json = await res.json()
-            this.setState({
-                elements: json,
-                loading: false,
-                w: this.container.current.offsetWidth,
-                h: this.container.current.offsetHeight
-            })
-            this.runLayout()
-            this.setUpListeners()
-        }
+        const path = process.env.REACT_APP_DEMO ? 'tutorial.json' : '/init'
+        this.setState({ ...this.state, loading: true })
+        const res = await fetch(path, { mode: 'no-cors' })
+        const json = await res.json()
+        this.setState({
+            elements: json,
+            loading: false,
+            w: this.container.current.offsetWidth,
+            h: this.container.current.offsetHeight
+        })
+        this.runLayout()
+        this.setUpListeners()
     }
 
 
