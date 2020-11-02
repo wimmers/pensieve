@@ -20,7 +20,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "predeploy": "REACT_APP_DEMO=1 npm run build",
+    "update-tutorial": "python3 server/create_graph.py tutorial public/tutorial.json",
+    "predeploy": "npm run update-tutorial && REACT_APP_DEMO=1 npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
