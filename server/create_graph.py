@@ -18,7 +18,7 @@ title_re = (
     r"\n---\n\n"
 )
 
-link_re = r"\[(?P<type>[^\]]+)\]\((?:@note/)?(?P<name>[^().\[\]]+)\.md\)"
+link_re = r"\[(?P<type>[^\]]+)\]\((?:@note/)?(?P<name>[^()\[\]]+)\.md\)"
 
 
 def parse_text(text):
